@@ -29,12 +29,40 @@ public class Utility {
 		return v;
 		
 	}
-	public static void writeToExcel(String path,int pass,int fail ) throws Exception, Exception, Exception {
+	public static void writeToExcel(String path,String sheet,int pass,int fail ) throws Exception, Exception, Exception {
+		try {
 		Workbook w = WorkbookFactory.create(new FileInputStream(path));
-		w.getSheet("sheet1").getRow(0).getCell(0).setCellValue(pass);
-		w.getSheet("sheet1").getRow(0).getCell(0).setCellValue(fail);
+		w.getSheet(sheet).getRow(0).getCell(0).setCellValue(pass);
+		w.getSheet(sheet).getRow(0).getCell(0).setCellValue(fail);
 		w.write(new FileOutputStream(path));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+	public static String getXLData(String path,String sheet,int r,int c ) {
+		String v="";
+		try {
+			Workbook w = WorkbookFactory.create(new FileInputStream(path));
+			v=w.getSheet(sheet).getRow(r).getCell(c).toString();
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return v;
+	}
+	public static int getXLRowCount(String path,String sheet) {
+		int count =0;
+		try {
+			Workbook w = WorkbookFactory.create(new FileInputStream(path));
+			count =w.getSheet(sheet).getLastRowNum();
+           }
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

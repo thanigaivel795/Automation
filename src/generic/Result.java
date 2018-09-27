@@ -4,7 +4,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class Result implements ITestListener {
+public class Result implements ITestListener,IAutoConst {
 int passCount=0,failCount=0;
 	@Override
 	public void onTestStart(ITestResult result) {
@@ -47,12 +47,16 @@ int passCount=0,failCount=0;
 	@Override
 	public void onFinish(ITestContext context) {
 		// TODO Auto-generated method stb
-		try {
-			Utility.writeToExcel("./result.summary.xlsx", passCount, failCount);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+			try {
+				Utility.writeToExcel(CONFIG_PATH, "sheet1",passCount, failCount);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			// TODO Auto-generated catch bloc
 		}
 	}
 
-}
+
